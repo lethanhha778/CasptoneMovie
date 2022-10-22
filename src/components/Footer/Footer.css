@@ -1,0 +1,65 @@
+.footer-movie{
+    background-color: #1a1a1a;
+    color: white;
+}
+.contact-item{
+    padding: 16px 0;
+}
+.contact-title{
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+    line-height: 1;
+    text-transform: uppercase;
+    padding-left: 8px;
+    margin-bottom: 10px;
+    border-left:4px solid #f26b38;
+}
+.contact-item li{
+    padding: 3px 0;
+}
+.contact-link:hover{
+    color: #f26b38;
+    text-decoration: none;
+}
+.item-icon a{
+    font-size: 22px;
+    padding: 0 8px;
+}
+a:hover .fa-youtube{
+    color: red;
+}
+a:hover .fa-instagram{
+    color: rgb(225, 59, 178);
+}
+a:hover .fa-apple{
+    color: rgb(162, 162, 159);
+}
+a:hover .fa-android{
+    color: chartreuse;
+}
+@media only screen and (min-width: 320px) {
+    .contact{
+        padding: 0 50px;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .contact{
+        padding: 0 50px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    
+    .contact{
+        padding: 0 80px;
+    }
+}

@@ -1,0 +1,64 @@
+.container-banner{
+    position: relative;
+}
+img{
+    display:block;
+    width: 100%;
+    height: 100%;
+}
+.banner{
+    object-fit: cover;
+}
+.container-oder{
+    z-index: 19;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    background-color: #fff;
+    max-width: 940px;
+    margin: auto;
+    width: 90%;
+    left: 50%;
+    transform: translate(-50%,50%);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+}
+.container-oder button{
+    width: 100%;
+}
+.slect{
+    background-color: white;
+    width: 100%;
+    border: transparent;
+    cursor: pointer;
+}
+
+@media only screen and (min-width: 320px) {
+    .img-banner{  
+        height: 250px;
+        margin-top: 40px;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .img-banner{  
+        height: 400px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .img-banner{  
+        height: 400px;
+        margin-top: 26px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .img-banner{  
+        height: 600px;
+        margin-top: 26px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {}
