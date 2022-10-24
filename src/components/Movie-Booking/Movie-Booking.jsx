@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { movieService } from '../../services/MovieServices'
+import '../Movie-Booking/movie.css'
 
 export default function MovieBooking() {
     var moment = require("moment");
@@ -16,24 +17,26 @@ export default function MovieBooking() {
             });
     }, []);
 
-    let [codeMovie, setCodeMovie] = useState('');
+    let [codeMovie, setCodeMovie] = useState(0);
     let handleInput = (e) => {
         let codeMovie = parseInt(e.target.value);
         console.log(codeMovie)
         setCodeMovie(codeMovie);
+        setDetailMovie([])
     };
     let [detailMovie, setDetailMovie] = useState([]);
+
     useEffect(() => {
-        movieService
-            .detailMovie(codeMovie)
-            .then((result) => {
-                console.log(result.data);
-                console.log(result.data.content.maPhim)
-                setDetailMovie(result.data.content.heThongRapChieu);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        if (codeMovie !== 0) {
+            movieService
+                .detailMovie(codeMovie)
+                .then((result) => {
+                    setDetailMovie(result.data.content.heThongRapChieu);
+                })
+                .catch((err) => {
+                    // console.log(err);
+                });
+        }
     }, [codeMovie]);
 
     let [cinema, setCinema] = useState([]);
@@ -58,23 +61,37 @@ export default function MovieBooking() {
             return <option key={index} value={movies.maPhim}>{movies.tenPhim}</option>
         })
     }
+
     let renderCinema = () => {
- 
-        return detailMovie.map((rap) => {
-            return rap.cumRapChieu?.map((theaterCluster, index) => {
-                return (
-                    <option value={theaterCluster.maCumRap} key={index}>
-                        {theaterCluster.tenCumRap}
-                    </option>
-                );
+        if (codeMovie === '') {
+            return <option >
+                Hãy Chọn Phim
+            </option>
+        }
+        else if (detailMovie.length === 0) {
+            return <option >
+                Phim Chưa Được Chiếu
+            </option>
+        }
+        else {
+            return detailMovie.map((rap) => {
+                return rap.cumRapChieu.map((theaterCluster, index) => {
+                    console.log(theaterCluster.tenCumRap);
+                    console.log(detailMovie)
+                    return (
+                        <option value={theaterCluster.maCumRap} key={index}>
+                            {theaterCluster.tenCumRap}
+                        </option>
+                    );
+                });
             });
-        });
+        }
+
     }
+
     let renderMovieDay = () => {
         return detailMovie.map((rap) => {
-            // console.log(cinema.cumRapChieu[0].lichChieuPhim[0].ngayChieuGioChieu);
             return rap.cumRapChieu.map((cumRap) => {
-                // console.log(cumRap);
                 if (cinema === cumRap.maCumRap) {
                     return cumRap.lichChieuPhim.map((lich, index) => {
                         return <option value={lich.ngayChieuGioChieu} key={index}>
@@ -82,6 +99,7 @@ export default function MovieBooking() {
                         </option>
                     })
                 }
+
             })
         })
     }
@@ -101,42 +119,42 @@ export default function MovieBooking() {
     }
 
     let renderBookTicket = () => {
-        if (codeMovie) {
-            return <button className='btn btn-danger' >Đặt Vé</button>
+        if (hoursMovie.length === 0) {
+            return <button className='btn-oder-a' disabled={true}>Đặt Vé</button>
         }
         else {
-            <button className='btn btn-danger' disabled={true}>Đặt Vé</button>
+            return <button className='btn-oder' onClick={() => { console.log(1); }} >Đặt Vé</button>
         }
     }
 
     return (
-        <div className="container-oder">{console.log(1)}
+        <div className="container-oder">
             <div className='row'>
-                <div className="form-group mt-2 col-md-2 col-xs-6 oder-select">
-                    <select defaultValue={"DEFAULT"} className="form-control slect" id="" onChange={handleInput}>
+                <div className="form-group mt-2 col-md-4 col-xs-6 oder-select">
+                    <select defaultValue={"DEFAULT"} className="form-select form-select-sm slect" id="" onChange={handleInput} aria-label=".form-select-lg example">
                         <option value={"DEFAULT"}>Chọn Phim</option>
                         {renderMovies()}
                     </select>
                 </div>
                 <div className="form-group mt-2 col-md-2 col-xs-6 oder-select">
-                    <select defaultValue={"DEFAULT"} className="form-control slect" id="" onChange={handleCinema}>
+                    <select defaultValue={"DEFAULT"} className="form-select form-select-sm slect" id="" onChange={handleCinema}>
                         <option value={"DEFAULT"}>Chọn Rạp</option>
                         {renderCinema()}
                     </select>
                 </div>
                 <div className="form-group mt-2 col-md-2 col-xs-6 oder-select">
-                    <select  defaultValue={"DEFAULT"} className="form-control slect" id="" onChange={handleDay}>
+                    <select defaultValue={"DEFAULT"} className="form-select form-select-sm slect" id="" onChange={handleDay}>
                         <option value={"DEFAULT"}>Chọn Ngày</option>
                         {renderMovieDay()}
                     </select>
                 </div>
                 <div className="form-group mt-2 col-md-2 col-xs-6 oder-select">
-                    <select defaultValue={"DEFAULT"} className="form-control slect" id="" onChange={handleHours}>
+                    <select defaultValue={"DEFAULT"} className="form-select form-select-sm slect" id="" onChange={handleHours}>
                         <option value={"DEFAULT"}>Chọn Giờ</option>
                         {renderMovieHouse()}
                     </select>
                 </div>
-                <div className="form-group mt-2 col-md-4 col-sm-12 ">
+                <div className="form-group mt-2 col-md-2 col-sm-12 ">
                     {renderBookTicket()}
                 </div>
             </div>

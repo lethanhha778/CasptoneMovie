@@ -1,0 +1,35 @@
+
+.menu-movie{
+    width: 100%;
+    margin: 70px auto;
+    text-align: center;
+
+}
+.btn-movie{
+    margin: 0 20px;
+    border: 2px solid #fa8c16;
+    background-color: white;
+    color: #fa8c16;
+    border-radius: 2px;
+    padding: 4px 10px;
+    font-weight: bold;
+}
+.activeBTn{
+    color: white;
+    background-color: #fa8c16;
+    border-color: #fa8c16;
+}
+
+/* .btn-movie:focus{
+    color: white;
+    background-color: #fa8c16;
+    border-color: #fa8c16;
+} */
+
+.link-movie{
+    padding: 0 30px;
+}
+.container-movie{
+    width: 80%;
+    margin: 0 auto;
+}

@@ -1,29 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import '../Banner/banner.css'
-import { TOKEN, URL_API } from '../../util/setting'
 import MovieBooking from '../Movie-Booking/Movie-Booking'
+import { movieService } from '../../services/MovieServices'
+
 
 export default function Banner() {
 
     const [listBanner, setListBanner] = useState([])
     useEffect(() => {
-        getAPIBanner()
+        movieService
+            .imgBanner()
+            .then((result) => {
+                setListBanner(result.data.content)
+            })
+            .catch((error) => { console.log(error) })
     }, [])
-
-    let getAPIBanner = () => {
-        let promise = axios({
-            method: 'get',
-            url: `${URL_API}/QuanLyPhim/LayDanhSachBanner`,
-            headers: {
-                'TokenCybersoft': TOKEN
-            }
-        })
-        promise.then((result) => {
-            setListBanner(result.data.content)
-        })
-        promise.catch((error) => { console.log(error) })
-    }
 
 
     let renderBanner = () => {
@@ -35,7 +26,7 @@ export default function Banner() {
     }
     return (
         <div className='container-banner'>
-            <div id="carouselExampleFade" className="carousel slide carousel-fade mt-5" data-bs-ride="carousel">
+            <div id="carouselExampleFade" className="carousel slide carousel-fade " data-bs-ride="carousel">
                 <div className="carousel-inner">
                     {renderBanner()}
                 </div>
